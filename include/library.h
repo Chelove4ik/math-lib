@@ -11,14 +11,4 @@
     #define LIB_CLASS       // Linux & other Unices : leave it blank !
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-LIB_CLASS void hello();
-
-#ifdef __cplusplus
-}
-#endif
-
 #endif //MATH_LIB_LIBRARY_H
