@@ -1,7 +1,6 @@
 #ifndef MATH_LIB_VECTOR2_H
 #define MATH_LIB_VECTOR2_H
 
-#include <string>
 #include "library.h"
 
 namespace mml {
