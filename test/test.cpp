@@ -1,55 +1,136 @@
 #include "Vector2.h"
+#include "Vector3.h"
+
+#include <glm/ext/vector_float2.hpp>
+#include <glm/ext/vector_float3.hpp>
+#include <glm/ext/quaternion_geometric.hpp>
 
 #include <iostream>
 #include <cassert>
+#include <random>
+
+#define LOOPS 1000000
 
 void test_vec2();
+
+void test_vec3();
 
 int main() {
     std::cout << "test" << std::endl;
 
     test_vec2();
+    test_vec3();
 
     return 0;
 }
 
-#define IF_FALSE_RET(x) if (!(x)) return false
+static float eps = powf(10, -6);
 
-bool operator==(mml::Vector2 &self, mml::Vector2 &other) {
-    IF_FALSE_RET(self.x == other.x);
-    IF_FALSE_RET(self.y == other.y);
+bool operator==(mml::Vector2 const &self, glm::vec2 const &other) {
+    for (int i = 0; i < 2; ++i) {
+        if (std::abs(self[i] - other[i]) > eps)
+            return false;
+    }
     return true;
 }
 
-void test_vec2() {
-    using vec2 = mml::Vector2;
+bool operator==(mml::Vector3 const &self, glm::vec3 const &other) {
+    for (int i = 0; i < 3; ++i) {
+        if (std::abs(self[i] - other[i]) > eps)
+            return false;
+    }
+    return true;
+}
 
-    {
-        auto a = vec2(1, 3);
-        auto b = vec2(5, 55);
-        assert(a.x == 1);
-        assert(a.y == 3);
-        assert(b.x == 5);
-        assert(b.y == 55);
+template<typename T, typename U>
+void test_vec(T my_first, T my_second, U glm_first, U glm_second);
+
+std::random_device rd;
+std::default_random_engine eng(rd());
+std::uniform_real_distribution<float> distr(-10000, 10000);
+
+void test_vec2() {
+    printf("test Vector2 ... ");
+    for (int i = 0; i < LOOPS; ++i) {
+        float a1 = distr(eng), a2 = distr(eng);
+        float b1 = distr(eng), b2 = distr(eng);
+
+        mml::Vector2 my_first{a1, a2}, my_second{b1, b2};
+        glm::vec2 glm_first{a1, a2}, glm_second{b1, b2};
+
+        {  // basic
+            assert(my_first.x == glm_first.x);
+            assert(my_first.y == glm_first.y);
+            assert(my_second.x == glm_second.x);
+            assert(my_second.y == glm_second.y);
+        }
+
+        test_vec(my_first, my_second, glm_first, glm_second);  // common test
+    }
+    printf("done\n");
+}
+
+void test_vec3() {
+    printf("test Vector3 ... ");
+
+    for (int i = 0; i < LOOPS; ++i) {
+        float a1 = distr(eng), a2 = distr(eng), a3 = distr(eng);
+        float b1 = distr(eng), b2 = distr(eng), b3 = distr(eng);
+
+        mml::Vector3 my_first{a1, a2, a3}, my_second{b1, b2, b3};
+        glm::vec3 glm_first{a1, a2, a3}, glm_second{b1, b2, b3};
+
+        {  // basic
+            assert(my_first.x == glm_first.x);
+            assert(my_first.y == glm_first.y);
+            assert(my_first.x == glm_first.x);
+            assert(my_second.x == glm_second.x);
+            assert(my_second.y == glm_second.y);
+            assert(my_second.z == glm_second.z);
+        }
+
+        test_vec(my_first, my_second, glm_first, glm_second);  // common test
+
+        {  // векторное произведение
+            assert(mml::vector_product(my_first, my_second) == glm::cross(glm_first, glm_second));
+        }
+    }
+    printf("done\n");
+}
+
+template<typename T, typename U>
+void test_vec(T my_first, T my_second, U glm_first, U glm_second) {
+    static_assert(
+            std::is_same<T, mml::Vector2>::value && std::is_same<U, glm::vec2>::value ||
+            std::is_same<T, mml::Vector3>::value && std::is_same<U, glm::vec3>::value,
+            "Unsupported types"
+    );
+    {  // сложение
+        auto my_ans = my_first + my_second;
+        auto glm_ans = glm_first + glm_second;
+        assert(my_ans == glm_ans);
+    }
+    {  // вычитание
+        auto my_ans = my_first - my_second;
+        auto glm_ans = glm_first - glm_second;
+        assert(my_ans == glm_ans);
+    }
+    {  // отрицание
+        assert(-my_first == -glm_first);
+    }
+    {  // умножение на число
+        float num = 3;
+        auto my_ans = my_first * num;
+        auto glm_ans = glm_first * num;
+        assert(my_ans == glm_ans);
+    }
+    {  // скалярное произведение
+        auto my_ans = mml::scalar_product(my_first, my_second);
+        auto glm_ans = glm::dot(glm_first, glm_second);
+        assert(my_ans == glm_ans);
     }
     {
-        auto a = vec2(1, 3);
-        auto b = vec2(5, 55);
-        auto c = a + b;
-        auto ans = vec2(6, 58);
-        assert(c == ans);
-    }
-    {
-        auto a = vec2(1, 3);
-        auto b = vec2(5, 55);
-        auto c = a - b;
-        auto ans = vec2(-4, -52);
-        assert(c == ans);
-    }
-    {
-        auto a = vec2(1, 3);
-        auto c = a * 3;
-        auto ans = vec2(3, 9);
-        assert(c == ans);
+        assert(mml::len(my_first) == glm::length(glm_first));
+        assert(mml::normalize(my_first) == glm::normalize(glm_first));
     }
 }
