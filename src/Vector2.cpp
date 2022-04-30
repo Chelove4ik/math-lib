@@ -1,3 +1,5 @@
+#include <cmath>
+#include <stdexcept>
 #include "Vector2.h"
 
 namespace mml {
@@ -21,22 +23,31 @@ namespace mml {
         return {x * num, y * num};
     }
 
+    Vector2 Vector2::operator/(float num) const {
+        return {x / num, y / num};
+    }
+    float Vector2::operator[](int index) const {
+        if (index < 0 || index > 1)
+            throw std::out_of_range("index must be in range [0,1]");
+        switch (index) {
+            default:
+            case 0:
+                return x;
+            case 1:
+                return y;
+        }
+    }
+
     float Vector2::scalar_product(Vector2 &other) const {
         return x * other.x + y * other.y;
     }
 
-    Vector2 Vector2::vector_product(Vector2 &other) const {
-        return {y * other.x, x * other.y};
+    float Vector2::len() const {
+        return sqrtf(powf(x, 2) + powf(y, 2));
     }
 
-    // ------------------------------------------------------------------------
-
-    float scalar_product(Vector2 &self, Vector2 &other) {
-        return self.scalar_product(other);
+    Vector2 Vector2::normalize() const {
+        return *this / this->len();
     }
 
-    Vector2 vector_product(Vector2 &self, Vector2 &other) {
-        return self.vector_product(other);
-    }
-
-}
+}//namespace mml

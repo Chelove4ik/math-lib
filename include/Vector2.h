@@ -20,15 +20,29 @@ namespace mml {
 
         Vector2 operator*(float num) const;
 
+        Vector2 operator/(float num) const;
+
+        float operator[](int index) const;
+
         float scalar_product(Vector2 &other) const;
 
-        Vector2 vector_product(Vector2 &other) const;
+        [[nodiscard]] float len() const;
+
+        [[nodiscard]] Vector2 normalize() const;
     };
 
-    LIB_CLASS float scalar_product(Vector2 &self, Vector2 &other);
+    [[nodiscard]] LIB_CLASS inline float scalar_product(Vector2 &self, Vector2 &other) {
+        return self.scalar_product(other);
+    }
 
-    LIB_CLASS Vector2 vector_product(Vector2 &self, Vector2 &other);
+    [[nodiscard]] LIB_CLASS inline float len(Vector2 &self) {
+        return self.len();
+    }
 
-}
+    [[nodiscard]] LIB_CLASS inline Vector2 normalize(Vector2 &self) {
+        return self.normalize();
+    }
+
+}//namespace mml
 
 #endif //MATH_LIB_VECTOR2_H
