@@ -8,7 +8,7 @@ namespace mml {
 
     }
 
-    Vector3 Vector3::operator+(Vector3 &other) const {
+    Vector3 Vector3::operator+(const Vector3 &other) const {
         return {x + other.x, y + other.y, z + other.z};
     }
 
@@ -16,7 +16,7 @@ namespace mml {
         return {-x, -y, -z};
     }
 
-    Vector3 Vector3::operator-(Vector3 &other) const {
+    Vector3 Vector3::operator-(const Vector3 &other) const {
         return {x - other.x, y - other.y, z - other.z};
     }
 
@@ -42,11 +42,11 @@ namespace mml {
         }
     }
 
-    float Vector3::scalar_product(Vector3 &other) const {
+    float Vector3::scalar_product(const Vector3 &other) const {
         return x * other.x + y * other.y + z * other.z;
     }
 
-    Vector3 Vector3::vector_product(Vector3 &other) const {
+    Vector3 Vector3::vector_product(const Vector3 &other) const {
         return {y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x};
     }
 

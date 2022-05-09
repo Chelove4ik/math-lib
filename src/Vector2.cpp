@@ -7,7 +7,7 @@ namespace mml {
 
     }
 
-    Vector2 Vector2::operator+(Vector2 &other) const {
+    Vector2 Vector2::operator+(const Vector2 &other) const {
         return {x + other.x, y + other.y};
     }
 
@@ -15,7 +15,7 @@ namespace mml {
         return {-x, -y};
     }
 
-    Vector2 Vector2::operator-(Vector2 &other) const {
+    Vector2 Vector2::operator-(const Vector2 &other) const {
         return {x - other.x, y - other.y};
     }
 
@@ -38,7 +38,7 @@ namespace mml {
         }
     }
 
-    float Vector2::scalar_product(Vector2 &other) const {
+    float Vector2::scalar_product(const Vector2 &other) const {
         return x * other.x + y * other.y;
     }
 

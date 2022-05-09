@@ -7,7 +7,7 @@ namespace mml {
 
     }
 
-    Vector4 Vector4::operator+(Vector4 &other) const {
+    Vector4 Vector4::operator+(const Vector4 &other) const {
         return {x + other.x, y + other.y, z + other.z, w + other.w};
     }
 
@@ -15,7 +15,7 @@ namespace mml {
         return {-x, -y, -z, -w};
     }
 
-    Vector4 Vector4::operator-(Vector4 &other) const {
+    Vector4 Vector4::operator-(const Vector4 &other) const {
         return {x - other.x, y - other.y, z - other.z, w - other.w};
     }
 
@@ -42,7 +42,7 @@ namespace mml {
         }
     }
 
-    float Vector4::scalar_product(Vector4 &other) const {
+    float Vector4::scalar_product(const Vector4 &other) const {
         Vector4 temp{x * other.x, y * other.y, z * other.z, w * other.w};
         return (temp.x + temp.y) + (temp.z + temp.w);
     }

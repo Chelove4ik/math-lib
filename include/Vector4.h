@@ -14,11 +14,11 @@ namespace mml {
 
         Vector4(float x, float y, float z, float w);
 
-        Vector4 operator+(Vector4 &other) const;
+        Vector4 operator+(const Vector4 &other) const;
 
         Vector4 operator-() const;
 
-        Vector4 operator-(Vector4 &other) const;
+        Vector4 operator-(const Vector4 &other) const;
 
         Vector4 operator*(float num) const;
 
@@ -26,22 +26,22 @@ namespace mml {
 
         float operator[](int index) const;
 
-        float scalar_product(Vector4 &other) const;
+        float scalar_product(const Vector4 &other) const;
 
         [[nodiscard]] float len() const;
 
         [[nodiscard]] Vector4 normalize() const;
     };
 
-    [[nodiscard]] LIB_CLASS inline float scalar_product(Vector4 &self, Vector4 &other) {
+    [[nodiscard]] LIB_CLASS inline float scalar_product(const Vector4 &self, const Vector4 &other) {
         return self.scalar_product(other);
     }
 
-    [[nodiscard]] LIB_CLASS inline float len(Vector4 &self) {
+    [[nodiscard]] LIB_CLASS inline float len(const Vector4 &self) {
         return self.len();
     }
 
-    [[nodiscard]] LIB_CLASS inline Vector4 normalize(Vector4 &self) {
+    [[nodiscard]] LIB_CLASS inline Vector4 normalize(const Vector4 &self) {
         return self.normalize();
     }
 

@@ -12,11 +12,11 @@ namespace mml {
 
         Vector3(float x, float y, float z);
 
-        Vector3 operator+(Vector3 &other) const;
+        Vector3 operator+(const Vector3 &other) const;
 
         Vector3 operator-() const;
 
-        Vector3 operator-(Vector3 &other) const;
+        Vector3 operator-(const Vector3 &other) const;
 
         Vector3 operator*(float num) const;
 
@@ -24,28 +24,28 @@ namespace mml {
 
         float operator[](int index) const;
 
-        float scalar_product(Vector3 &other) const;
+        float scalar_product(const Vector3 &other) const;
 
-        Vector3 vector_product(Vector3 &other) const;
+        Vector3 vector_product(const Vector3 &other) const;
 
         [[nodiscard]] float len() const;
 
         [[nodiscard]] Vector3 normalize() const;
     };
 
-    [[nodiscard]] LIB_CLASS inline float scalar_product(Vector3 &self, Vector3 &other) {
+    [[nodiscard]] LIB_CLASS inline float scalar_product(const Vector3 &self, const Vector3 &other) {
         return self.scalar_product(other);
     }
 
-    [[nodiscard]] LIB_CLASS inline Vector3 vector_product(Vector3 &self, Vector3 &other) {
+    [[nodiscard]] LIB_CLASS inline Vector3 vector_product(const Vector3 &self, const Vector3 &other) {
         return self.vector_product(other);
     }
 
-    [[nodiscard]] LIB_CLASS inline float len(Vector3 &self) {
+    [[nodiscard]] LIB_CLASS inline float len(const Vector3 &self) {
         return self.len();
     }
 
-    [[nodiscard]] LIB_CLASS inline Vector3 normalize(Vector3 &self) {
+    [[nodiscard]] LIB_CLASS inline Vector3 normalize(const Vector3 &self) {
         return self.normalize();
     }
 }
