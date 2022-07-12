@@ -8,6 +8,8 @@ namespace mml {
 
     }
 
+    Vector3::Vector3(const Vector3 &other) = default;
+
     Vector3 Vector3::operator+(const Vector3 &other) const {
         return {x + other.x, y + other.y, z + other.z};
     }
@@ -28,7 +30,21 @@ namespace mml {
         return {x / num, y / num, z / num};
     }
 
-    float Vector3::operator[](int index) const {
+    float &Vector3::operator[](int index) {
+        if (index < 0 || index > 2)
+            throw std::out_of_range("index must be in range [0,2]");
+        switch (index) {
+            default:
+            case 0:
+                return x;
+            case 1:
+                return y;
+            case 2:
+                return z;
+        }
+    }
+
+    const float &Vector3::operator[](int index) const {
         if (index < 0 || index > 2)
             throw std::out_of_range("index must be in range [0,2]");
         switch (index) {
