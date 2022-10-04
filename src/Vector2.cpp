@@ -7,6 +7,8 @@ namespace mml {
 
     }
 
+    Vector2::Vector2(const Vector2 &other) = default;
+
     Vector2 Vector2::operator+(const Vector2 &other) const {
         return {x + other.x, y + other.y};
     }
@@ -26,7 +28,8 @@ namespace mml {
     Vector2 Vector2::operator/(float num) const {
         return {x / num, y / num};
     }
-    float Vector2::operator[](int index) const {
+
+    float &Vector2::operator[](int index) {
         if (index < 0 || index > 1)
             throw std::out_of_range("index must be in range [0,1]");
         switch (index) {
@@ -37,6 +40,19 @@ namespace mml {
                 return y;
         }
     }
+
+    const float &Vector2::operator[](int index) const {
+        if (index < 0 || index > 1)
+            throw std::out_of_range("index must be in range [0,1]");
+        switch (index) {
+            default:
+            case 0:
+                return x;
+            case 1:
+                return y;
+        }
+    }
+
 
     float Vector2::scalar_product(const Vector2 &other) const {
         return x * other.x + y * other.y;

@@ -14,6 +14,8 @@ namespace mml {
 
         Vector4(float x, float y, float z, float w);
 
+        Vector4(const Vector4 &other);
+
         Vector4 operator+(const Vector4 &other) const;
 
         Vector4 operator-() const;
@@ -24,7 +26,9 @@ namespace mml {
 
         Vector4 operator/(float num) const;
 
-        float operator[](int index) const;
+        float &operator[](int index);
+
+        const float &operator[](int index) const;
 
         float scalar_product(const Vector4 &other) const;
 
