@@ -9,6 +9,10 @@ namespace mml {
 
     Vector2::Vector2(const Vector2 &other) = default;
 
+    Vector2::Vector2() : x(0), y(0) {
+
+    }
+
     Vector2 Vector2::operator+(const Vector2 &other) const {
         return {x + other.x, y + other.y};
     }

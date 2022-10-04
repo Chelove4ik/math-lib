@@ -10,6 +10,10 @@ namespace mml {
 
     Vector3::Vector3(const Vector3 &other) = default;
 
+    Vector3::Vector3() : x(0), y(0), z(0) {
+
+    }
+
     Vector3 Vector3::operator+(const Vector3 &other) const {
         return {x + other.x, y + other.y, z + other.z};
     }

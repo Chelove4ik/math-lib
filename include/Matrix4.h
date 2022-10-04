@@ -10,6 +10,8 @@ namespace mml {
 
         explicit Matrix4(const float arr[16]);
 
+        Matrix4() = default;
+
         Vector4 &operator[](int index);
 
         const Vector4 &operator[](int index) const;

@@ -9,6 +9,10 @@ namespace mml {
 
     Vector4::Vector4(const Vector4 &other) = default;
 
+    Vector4::Vector4() : x(0), y(0), z(0), w(0) {
+
+    }
+
     Vector4 Vector4::operator+(const Vector4 &other) const {
         return {x + other.x, y + other.y, z + other.z, w + other.w};
     }
