@@ -54,6 +54,10 @@ namespace mml {
     [[nodiscard]] LIB_CLASS inline Vector3 normalize(const Vector3 &self) {
         return self.normalize();
     }
+
+    [[nodiscard]] LIB_CLASS inline Vector3 forward(const Vector3 &from, const Vector3 &to) {
+        return normalize(to - from);
+    }
 }
 
 #endif //MATH_LIB_VECTOR3_H

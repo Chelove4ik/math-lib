@@ -16,6 +16,20 @@ namespace mml {
 
         const Vector3 &operator[](int index) const;
 
+        Matrix3 operator+(const Matrix3 &other);
+
+        Matrix3 operator-(const Matrix3 &other);
+
+        Matrix3 operator*(float num);
+
+        Matrix3 operator*(const Matrix3 &other);
+
+        Matrix3 transpose();
+
+        float det() const;
+
+        Matrix3 inverse() const;
+
      private:
         Vector3 data[3];
     };
